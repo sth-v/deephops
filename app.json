@@ -1,0 +1,6 @@
+{
+    "name": "deephops",
+    "description": "test.",
+    "repository": "https://github.com/sth-v/deephops",
+    "success_url": ["/polygon_read", "/get_np_array"]
+}
