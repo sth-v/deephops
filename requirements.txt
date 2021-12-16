@@ -1,4 +1,6 @@
 gunicorn
+werkzeug
+flask
 numpy
 scipy
 rhino3dm
