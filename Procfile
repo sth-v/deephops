@@ -1,1 +1,1 @@
-web: gunicorn -a deephops.wsgi
+web: python app.py
