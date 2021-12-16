@@ -1,1 +1,1 @@
-web: gunicorn deephops.wsgi
+web: gunicorn -a deephops.wsgi
