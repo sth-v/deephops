@@ -1,0 +1,16 @@
+gunicorn
+numpy
+scipy
+rhino3dm
+compute-rhino3d
+ghhops_server
+joblib
+threadpoolctl
+cython
+matplotlib
+scikit-image
+pandas
+seaborn
+psutil
+memory_profiler
+scikit-learn
