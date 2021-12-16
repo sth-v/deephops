@@ -1,5 +1,5 @@
 
-import func_content as fc
+import deephops.func_content as fc
 
 """func_layers -
 """

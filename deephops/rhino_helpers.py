@@ -1,6 +1,6 @@
 import numpy as np
 import rhino3dm
-from func_layers import FuncLayer
+from .func_layers import FuncLayer
 
 
 def save_array(data, func_layer: FuncLayer):
