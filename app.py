@@ -18,6 +18,17 @@ def help():
     return "Huge thanks to Andrew for this tool"
 
 
+@hops.component(
+    foo_deephops.rule,
+    name=foo_deephops.name,
+    nickname=foo_deephops.nickname,
+    description=foo_deephops.description,
+    inputs=foo_deephops.input,
+    outputs=foo_deephops.output
+)
+def foo(run=True):
+    if run:
+        return foo_deephops.f(run)
 
 @hops.component(
     help_deephops.rule,
@@ -112,7 +123,6 @@ def func_shape(run = True , steps = 12, p = 3):
         print('problem')
 
     return np.ndarray.tolist(result), pts
-
 
 
 # Press the green button in the gutter to run the script.
