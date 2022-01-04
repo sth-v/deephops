@@ -83,11 +83,11 @@ def f_help():
 
 
 foo_deephops = Function(func=f_foo_deephops,
-                        name='f_foo_deephops')
+                        name='foo')
 
 
 help_deephops = Function(func=f_help,
-                         name='help',
+                         name='fhelp',
                          description='f_help',
                          category='base',
                          subcategory='support'

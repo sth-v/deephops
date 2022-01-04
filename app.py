@@ -10,25 +10,13 @@ from random import random
 
 # register hops app as middleware
 app = Flask(__name__)
-hops = hs.Hops(app)
+hops: hs.HopsFlask = hs.Hops(app)
 
 
+@app.route("/help")
+def help():
+    return "Huge thanks to Andrew for this tool"
 
-
-@hops.component(
-    foo_deephops.rule,
-    name=foo_deephops.name,
-    nickname=foo_deephops.nickname,
-    description=foo_deephops.description,
-    inputs=foo_deephops.input,
-    outputs=foo_deephops.output
-)
-def foo_dh(run=True):
-    if run:
-        print('foo run')
-        return foo_deephops.f()
-    else:
-        return 'enabled'
 
 
 @hops.component(
@@ -44,8 +32,8 @@ def help_dh(run=True):
         print('help run')
         res = help_deephops.f()
 
-        res.append('/func_shape')
-        res.append('/get_np_array')
+        res.append('/funcshape')
+        res.append('/getnparray')
         return res
     else:
         return 'enabled'
@@ -55,8 +43,8 @@ def help_dh(run=True):
 
 
 @hops.component(
-    '/get_np_array',
-    name='get_np_array',
+    '/getnparray',
+    name='getnparray',
     nickname='pr',
     description='read some n-gon for master plane site',
     inputs=[
@@ -97,8 +85,8 @@ def some(run = True):
 
 
 @hops.component(
-    '/func_shape',
-    name='func_shape',
+    '/funcshape',
+    name='funcshape',
     nickname='fs',
     description='read some n-gon for master plane site',
     inputs=[
