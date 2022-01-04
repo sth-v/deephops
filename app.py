@@ -5,7 +5,7 @@ import ghhops_server as hs
 from deephops.func_layers import FL_PolygonRead, dec_tor_shp
 from deephops.rhino_helpers import InputRhinoHelper, OutputRhinoHelper, get_point_list, rh_generator
 from deephops.tensor_base import Tensor
-from deephops.app_content.f_ import foo_deephops, help_deephops
+from deephops.librarys.f_ import foo_deephops, help_deephops
 from random import random
 
 # register hops app as middleware
