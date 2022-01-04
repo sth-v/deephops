@@ -1,6 +1,6 @@
 import numpy as np
 import rhino3dm
-from .func_layers import FuncLayer
+from deephops.func_layers import FuncLayer
 
 
 def save_array(data, func_layer: FuncLayer):
@@ -47,6 +47,17 @@ class InputRhinoHelper:
         return array
 
 
+def get_point_list(pointlist):
+    args = pointlist
+    rhino_pointlist = []
+    for arg in args:
+        x_new = arg[0]
+        y_new = arg[1]
+        z_new = arg[2]
+        rhino_pointlist.append(rhino3dm.Point3d(x_new, y_new, z_new))
+    return rhino_pointlist
+
+
 class OutputRhinoHelper:
     def __init__(self, array: iter):
         self.ndarray = array
@@ -84,3 +95,24 @@ class OutputRhinoHelper:
             rhino_curves.append(crv)
 
         return rhino_curves
+
+
+
+def rh_generator(func):
+
+    def generic_wrapper(func):
+        yield func
+
+    def wrap(count):
+        result = []
+        for c in range(count):
+            result.extend(generic_wrapper(func()))
+        return result
+    return wrap
+
+
+
+
+
+
+
