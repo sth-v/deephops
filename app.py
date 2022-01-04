@@ -28,7 +28,7 @@ def help():
 )
 def foo(run=True):
     if run:
-        return foo_deephops.f(run)
+        return foo_deephops.f()
 
 @hops.component(
     help_deephops.rule,
@@ -45,12 +45,44 @@ def help_dh(run=True):
 
         res.append('/funcshape')
         res.append('/getnparray')
+        res.append('/polygonread')
         return res
     else:
         return 'enabled'
 
 
+@hops.component(
+    '/polygonread',
+    name='Polygon Read',
+    nickname='pr',
+    description='read some n-gon for master plane site',
+    inputs=[
+        hs.HopsPoint("Master plan n-gon points", "MN", "Geometry to computation model", hs.HopsParamAccess.LIST),
+        hs.HopsInteger("parameter", "p", "p to fl", hs.HopsParamAccess.ITEM, default=1),
+    ],
+    outputs=[
+        hs.HopsCurve("A", "A", "A", hs.HopsParamAccess.LIST),
+        hs.HopsCurve("B", "B", "B", hs.HopsParamAccess.LIST)
+    ]
+)
+def polygon_read(in_points, in_p ):
+    """
 
+    :param in_points:
+    :param in_p:
+    :return:
+    """
+
+    in_helper = InputRhinoHelper(in_points)
+    data = in_helper.get_points(['X', 'Y'], FL_PolygonRead, True)
+
+    results = FL_PolygonRead.__f__(data, in_p)
+
+    out_helper = OutputRhinoHelper(results)
+    out_rectangles = out_helper.get_rectangle(0)
+    out_cluster_curves = out_helper.get_clusters_curves(1)
+
+    return out_rectangles, out_cluster_curves
 
 
 @hops.component(
