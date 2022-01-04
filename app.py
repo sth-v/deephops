@@ -18,8 +18,6 @@ hops = hs.Hops()
 def random_rhino_point():
     return rhino3dm.Point3d(random()*10, random()*10, 0)
 
-default_pt=random_rhino_point(6)
-print(default_pt)
 @hops.component(
     foo_deephops.rule,
     name=foo_deephops.name,
@@ -28,8 +26,9 @@ print(default_pt)
     inputs=foo_deephops.input,
     outputs=foo_deephops.output
 )
-def foo_dh(run: bool):
+def foo_dh(run=True):
     if run:
+        print('foo run')
         return foo_deephops.f()
     else:
         return 'enabled'
@@ -43,8 +42,9 @@ def foo_dh(run: bool):
     inputs=help_deephops.input,
     outputs=help_deephops.output
 )
-def help_dh(run: bool):
+def help_dh(run=True):
     if run:
+        print('help run')
         res = help_deephops.f()
 
         res.append('/func_shape')
@@ -72,7 +72,8 @@ def help_dh(run: bool):
 
     ]
 )
-def some(run: bool):
+def some(run = True):
+    print('get array run')
     if run:
 
 
@@ -104,6 +105,7 @@ def some(run: bool):
     nickname='fs',
     description='read some n-gon for master plane site',
     inputs=[
+        hs.HopsBoolean("run", "run", "run", hs.HopsParamAccess.ITEM, default=True),
         hs.HopsInteger("steps", "steps", "steps", hs.HopsParamAccess.ITEM, default=12),
         hs.HopsInteger("p", "p", "p", hs.HopsParamAccess.ITEM, default=3)
 
@@ -115,10 +117,14 @@ def some(run: bool):
 
     ]
 )
-def func_shape(steps, p):
-    result = dec_tor_shp(steps, p)
-    print(result, np.array(result).shape)
-    pts = get_point_list(result)
+def func_shape(run = True , steps = 12, p = 3):
+    if run:
+        print('tor run')
+        result = dec_tor_shp(steps, p)
+        print(result, np.array(result).shape)
+        pts = get_point_list(result)
+    else:
+        print('problem')
 
     return np.ndarray.tolist(result), pts
 
