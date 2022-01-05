@@ -9,12 +9,13 @@ hops: hs.HopsFlask = hs.Hops(app)
 
 
 @app.route("/help")
-def help():
+def apphelp():
     return "Huge thanks to Andrew for this tool"
 
 
 for i in lf.instances:
     kwargs_dict = dict(i._no_func_dict())
+    print(kwargs_dict)
     hops.component(**kwargs_dict)(i._comp_func)
 
 

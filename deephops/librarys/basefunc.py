@@ -59,19 +59,19 @@ class Function:
             'no output')
     ]
 
-    def __new__(cls, _comp_func, name=None, description = _description, category = _category, subcategory=_subcategory, inputs =[], outputs=[]):
+    def __new__(cls, _comp_func, name=None, description=_description, category=_category, subcategory=_subcategory, inputs=[], outputs=[]):
         instance = super().__new__(cls)
         print(f'new class instance:{_comp_func} | {_comp_func.__qualname__} | {description}')
         return instance
 
-    def __init__(self, _comp_func, name=None, description = _description, category = _category, subcategory=_subcategory, inputs =[], outputs=[]):
+    def __init__(self, _comp_func, name=None, description=_description, category=_category, subcategory=_subcategory, inputs=[], outputs=[]):
         self._comp_func = _comp_func
-        self.name = self._comp_func.__qualname__ if name == None else name
-        self.nickname = name
+        self.name = self._comp_func.__qualname__ if name is None else name
+        self.nickname = self.name
         self.description = description
         self.category = category
         self.subcategory = subcategory
-        self.rule = '/' + self.name
+        self.rule = f'/{self.name}'
         self.inputs = list(itertools.chain(self._INPUTS, inputs))
         self.outputs = list(itertools.chain(self._OUTPUTS, outputs))
 
@@ -91,15 +91,15 @@ class Function:
 
 Function(_comp_func=foo,name='foo')
 
-Function(_comp_func=help,description='f_help')
+Function(_comp_func=help,description='help')
 
-Function(_comp_func=dh.add,description='adddh',inputs = [_param_p, _param_a],outputs=[_result_r])
+Function(_comp_func=dh.add,description='add',inputs = [_param_p, _param_a],outputs=[_result_r])
 
-print(instances)
+for i in instances:
+    print(i.name)
 
-print(dir(dh))
+
 
 isfunction = inspect.isfunction
 mem = inspect.getmembers(dh, isfunction)
 
-print(mem)
