@@ -1,7 +1,11 @@
 import inspect
 import itertools
-import deephops.librarys.dh as dh
+import deephops.librarys.dh_operators as dh
+import deephops.librarys.default as default_prm
 import ghhops_server as hs
+import operator as op
+
+
 
 
 _param_p = hs.HopsInteger("p", "p", "p to fl", hs.HopsParamAccess.ITEM, default=1)
@@ -31,23 +35,19 @@ def cls_count(cls):
     return wrap
 
 
+def add(run, a, b):
+    if run:
+        return f'{a} + {b}', op.add(a, b)
+
+
 @cls_count
 class Function:
+
 
     _description = 'foo instance'
     _category = 'deephops'
     _subcategory = 'example'
-    _INPUTS = [
 
-        hs.HopsBoolean(
-            'run',
-            'run',
-            'default test input,'
-            ' default=True,'
-            ' if want enable this hops, set False',
-            hs.HopsParamAccess.ITEM,
-            False,
-            True)]
     _OUTPUTS = [
 
         hs.HopsString(
@@ -61,7 +61,7 @@ class Function:
 
     def __new__(cls, _comp_func, name=None, description=_description, category=_category, subcategory=_subcategory, inputs=[], outputs=[]):
         instance = super().__new__(cls)
-        print(f'new class instance:{_comp_func} | {_comp_func.__qualname__} | {description}')
+        print(f'new class instance:{_comp_func} | {_comp_func.__qualname__ if name is None else name} | {description}')
         return instance
 
     def __init__(self, _comp_func, name=None, description=_description, category=_category, subcategory=_subcategory, inputs=[], outputs=[]):
@@ -72,7 +72,7 @@ class Function:
         self.category = category
         self.subcategory = subcategory
         self.rule = f'/{self.name}'
-        self.inputs = list(itertools.chain(self._INPUTS, inputs))
+        self.inputs = inputs
         self.outputs = list(itertools.chain(self._OUTPUTS, outputs))
 
     def _no_func_dict(self):
@@ -89,17 +89,32 @@ class Function:
 
 
 
-Function(_comp_func=foo,name='foo')
+Function(_comp_func=foo,name='foo',inputs=[default_prm._INPUTS_DEF['run']])
 
-Function(_comp_func=help,description='help')
+Function(_comp_func=help,description='help', inputs=[default_prm._INPUTS_DEF['run']])
 
-Function(_comp_func=dh.add,description='add',inputs = [_param_p, _param_a],outputs=[_result_r])
-
-for i in instances:
-    print(i.name)
+Function(_comp_func=add,description='add',inputs = [default_prm._INPUTS_DEF['run'], _param_p, _param_a],outputs=[_result_r])
 
 
 
-isfunction = inspect.isfunction
-mem = inspect.getmembers(dh, isfunction)
+
+
+dh_func = dict(inspect.getmembers(dh, inspect.isfunction))
+
+
+for i in dh.__privat__:
+    dh_func.__delitem__(i)
+
+dw = dict(dh.kwd)
+dhk = list(dh_func.keys())
+dhf = list(dh_func.values())
+print(dh_func)
+
+for i in dhk:
+
+    j = dw[i]
+    print(dw[i])
+
+    Function(_comp_func=dh_func[i],name = i ,description='numpy creator' ,inputs = j, outputs=[dh.outp[0]])
+
 
