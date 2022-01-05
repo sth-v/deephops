@@ -1,97 +1,10 @@
-import ghhops_server as hs
+import operator
 
 
+def add(run, a, b):
+    if run:
+        return f'{a} + {b}', operator.add(a, b)
 
-instances = []
-
-
-def cls_count(cls):
-    def wrap(*args: object, **kwargs: object) -> object:
-        obj = cls(*args, **kwargs)
-        instances.append(obj)
-        return obj
-    return wrap
-
-
-@cls_count
-class Function:
-
-    _description = 'foo instance'
-    _category = 'foo'
-    _subcategory = 'foo'
-
-    _INPUTS = [
-
-        hs.HopsBoolean(*[
-            'run',
-            'run',
-            'default test input,'
-            ' default=True,'
-            ' if want enable this hops, set False',
-            hs.HopsParamAccess.ITEM,
-            False,
-            True])]
-
-    _OUTPUTS = [
-
-        hs.HopsString(*[
-            'out',
-            'out',
-            'output field for text data, errors and other messages, and python console',
-            hs.HopsParamAccess.LIST,
-            False,
-            'no output'])
-    ]
-
-
-    def __new__(cls, func, name, description = _description, category = _category, subcategory=_subcategory, inputs=_INPUTS, outputs=_OUTPUTS):
-        instance = super().__new__(cls)
-        print(f'new class instance: {func} | {name} | {description}')
-        return instance
-
-    def __init__(self, func, name, description = _description, category = _category, subcategory=_subcategory, inputs=_INPUTS, outputs=_OUTPUTS):
-        self.f = func
-        self.name = name
-        self.nickname = name
-        self.description = description
-        self.category = category
-        self.subcategory = subcategory
-        self.rule = '/' + self.name
-        self.names = self.__dict__.keys()
-        self.input = [*self._INPUTS] if inputs == self._INPUTS else [*self._INPUTS, *inputs]
-        self.output = [*self._OUTPUTS] if outputs == self._OUTPUTS else [*self._OUTPUTS, *outputs]
-
-    def __setattr__(self, attr, value):
-        if attr:
-            self.__dict__[attr] = value
-        else:
-            raise AttributeError(attr + ' not allowed')
-
-    def __str__(self):
-        return f' function {self.name}'
-
-
-def f_foo_deephops():
-    return 'Huge thanks to Andrew for this tool'
-
-
-def f_help():
-    rulist = []
-    for i in instances:
-        rulist.append(i.rule)
-    return rulist
-
-
-foo_deephops = Function(func=f_foo_deephops,
-                        name='foo')
-
-
-help_deephops = Function(func=f_help,
-                         name='fhelp',
-                         description='f_help',
-                         category='base',
-                         subcategory='support'
-                         )
 
 '''
 geometry pointlist
