@@ -4,63 +4,16 @@ from itertools import *
 import numpy as np
 import ghhops_server as hs
 import sys
+from deephops.librarys.default import ints, floats, string, bools, in_array, out_array, prms_py, prms_hs, outp
 
 np.set_printoptions(threshold=sys.maxsize)
 
-__privat__=['_np_decoration']
-
-
-ints = [('axis', 0),
-        ('num', 50)]
-floats = [('start', 1),
-        ('stop', 10),
-        ('step', 1),
-        ('base', 10.0)]
-string = [('indexing', 'xy')]
-bools = [('endpoint', True),
-        ('retstep', False),
-        ('sparse',False),
-        ('copy',True),
-         ('run',True)]
-
-in_array = [('in_array')]
-out_array = [('out_np_array')]
-
-base=dict(floats)['base']
-stop=dict(floats)['stop']
-start=dict(floats)['start']
-step=dict(floats)['step']
-
-
-
-
-
-prms_hs, prms_py, outp =[], [], []
-prms_py = list(chain(ints, floats, bools, string))
-
-
-
-for i in ints:
-    prms_hs.append((i[0], hs.HopsInteger(i[0], i[0], i[0], default=i[1])))
-
-for i in floats:
-    prms_hs.append((i[0], hs.HopsNumber(i[0], i[0], i[0], default=i[1])))
-
-for i in bools:
-    prms_hs.append((i[0], hs.HopsBoolean(i[0], i[0], i[0], default=i[1])))
-
-for i in string:
-    prms_hs.append((i[0], hs.HopsString(i[0], i[0], i[0], default=i[1])))
-
-for i in out_array:
-        outp.append(hs.HopsNumber(i[0], i[0], i[0], access=hs.HopsParamAccess.LIST, optional=True))
-
+__privat__= ['_np_decoration']
+__description__ = 'npumpy'
 
 kwd = []
-prms_py = dict(prms_py)
+
 print(prms_py)
-
-
 
 
 def _np_decoration(func):
@@ -72,7 +25,7 @@ def _np_decoration(func):
     kwd.append((func.__qualname__, local_args))
 
 
-def arange(run = prms_py['run'], start=prms_py['start'], stop=prms_py['stop'], step=prms_py['step']):
+def np_arange(run = prms_py['run'], start=prms_py['start'], stop=prms_py['stop'], step=prms_py['step']):
     if run:
         n = np.arange(start, stop, step)
         print(n)
@@ -81,8 +34,7 @@ def arange(run = prms_py['run'], start=prms_py['start'], stop=prms_py['stop'], s
         return [0]
 
 
-
-def linspace(run = prms_py['run'], start=prms_py['start'], stop=prms_py['stop'], num=prms_py['num'], endpoint=prms_py['endpoint'], retstep=prms_py['retstep']):
+def np_linspace(run = prms_py['run'], start=prms_py['start'], stop=prms_py['stop'], num=prms_py['num'], endpoint=prms_py['endpoint'], retstep=prms_py['retstep']):
     if run:
         n = np.linspace(start, stop, num, endpoint, retstep)
         return f'{print(n)}', n.tolist()
@@ -90,7 +42,7 @@ def linspace(run = prms_py['run'], start=prms_py['start'], stop=prms_py['stop'],
         return  [0]
 
 
-def logspace(run = prms_py['run'], start=prms_py['start'], stop=prms_py['stop'], num=prms_py['num'], endpoint=prms_py['endpoint'], base=prms_py['base']):
+def np_logspace(run = prms_py['run'], start=prms_py['start'], stop=prms_py['stop'], num=prms_py['num'], endpoint=prms_py['endpoint'], base=prms_py['base']):
     if run:
         n = np.logspace(start, stop, num, endpoint, base)
         return f'{print(n)}', n.tolist()
@@ -98,13 +50,13 @@ def logspace(run = prms_py['run'], start=prms_py['start'], stop=prms_py['stop'],
         return [0]
 
 
-
-_np_decoration(arange)
-_np_decoration(linspace)
-_np_decoration(logspace)
+_np_decoration(np_arange)
+_np_decoration(np_linspace)
+_np_decoration(np_logspace)
 
 print(kwd)
-print(linspace())
+print(np_linspace())
+
 
 """ 
 def np_create(run, kwargs):

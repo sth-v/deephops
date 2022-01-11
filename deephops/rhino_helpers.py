@@ -1,6 +1,6 @@
 import numpy as np
 import rhino3dm
-from deephops.func_layers import FuncLayer
+from func_layers import FuncLayer
 
 
 def save_array(data, func_layer: FuncLayer):
@@ -22,40 +22,8 @@ class InputRhinoHelper:
     def __init__(self, rhino_geometry):
         self.geometry = rhino_geometry
 
-    def get_points(self, mask: list[str], func_layer: FuncLayer, save=True) -> np.array:
-        """
-
-        :param mask:
-        :param func_layer:
-        :param save:
-        :return:
-        """
-        in_points = self.geometry
-        to_np_old = []
-        to_np = []
-
-        for point in in_points:
-            mask_dict = {'X': point.X, 'Y': point.Y, 'Z': point.Z}
-            to_np.append(list(map((lambda x: mask_dict.pop(x)), mask)))
-
-        print(to_np)
-        array = np.array(to_np)
-
-        if save:
-            save_array(array, func_layer)
-
-        return array
 
 
-def get_point_list(pointlist):
-    args = pointlist
-    rhino_pointlist = []
-    for arg in args:
-        x_new = arg[0]
-        y_new = arg[1]
-        z_new = arg[2]
-        rhino_pointlist.append(rhino3dm.Point3d(x_new, y_new, z_new))
-    return rhino_pointlist
 
 
 class OutputRhinoHelper:

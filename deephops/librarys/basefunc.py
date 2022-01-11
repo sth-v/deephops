@@ -1,6 +1,7 @@
 import inspect
 import itertools
-import deephops.librarys.dh_operators as dh
+import deephops.librarys.dh_min_bounding_rectangle as dhr
+import deephops.librarys.dh_numpy as dh
 import deephops.librarys.default as default_prm
 import ghhops_server as hs
 import operator as op
@@ -96,9 +97,6 @@ Function(_comp_func=help,description='help', inputs=[default_prm._INPUTS_DEF['ru
 Function(_comp_func=add,description='add',inputs = [default_prm._INPUTS_DEF['run'], _param_p, _param_a],outputs=[_result_r])
 
 
-
-
-
 dh_func = dict(inspect.getmembers(dh, inspect.isfunction))
 
 
@@ -117,4 +115,9 @@ for i in dhk:
 
     Function(_comp_func=dh_func[i],name = i ,description='numpy creator' ,inputs = j, outputs=[dh.outp[0]])
 
+otpd = dict(dhr.prms_hs)
+
+Function(_comp_func=dhr.base_min_bound_rect, name = 'base_min_bound_rect' ,description='base_min_bound_rect' ,inputs =[otpd['points'],otpd['run'] ], outputs=dhr.outppt)
+
+Function(_comp_func=dhr.base_convexhull, name = 'base_convexhull' ,description='base_convexhull' ,inputs =[otpd['points'],otpd['run'] ], outputs=dhr.outppt)
 
