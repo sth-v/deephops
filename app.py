@@ -1,6 +1,6 @@
 from flask import Flask
 import ghhops_server as hs
-import deephops.librarys.basefunc as lf
+import deephops.base as lf
 
 
 # register hops app as middleware

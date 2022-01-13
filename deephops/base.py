@@ -1,13 +1,15 @@
 import inspect
 import itertools
-import deephops.librarys.dh_operators as dh
-import deephops.librarys.default as default_prm
+import deephops.cpfuncs as _dh_geo
+import deephops.npfuncs as _dh_np
+import deephops.default as _dh_default
 import ghhops_server as hs
 import operator as op
 
 
-
-
+__prms_in = dict(_dh_default.prms_hs)
+__points_out_a = _dh_default.points_out[0]
+__points_out_b = _dh_default.points_out[1]
 _param_p = hs.HopsInteger("p", "p", "p to fl", hs.HopsParamAccess.ITEM, default=1)
 _param_a = hs.HopsInteger("a", "a", "a to a", hs.HopsParamAccess.ITEM, default=2)
 _result_r = hs.HopsInteger("integer_val", "r", "r to r", hs.HopsParamAccess.ITEM)
@@ -42,7 +44,6 @@ def add(run, a, b):
 
 @cls_count
 class Function:
-
 
     _description = 'foo instance'
     _category = 'deephops'
@@ -88,24 +89,29 @@ class Function:
         return f' function {self.name}'
 
 
+Function(_comp_func=foo,
+         name='foo',
+         inputs=[_dh_default._INPUTS_DEF['run']]
+         )
 
-Function(_comp_func=foo,name='foo',inputs=[default_prm._INPUTS_DEF['run']])
+Function(_comp_func=help,
+         description='help',
+         inputs=[_dh_default._INPUTS_DEF['run']]
+         )
 
-Function(_comp_func=help,description='help', inputs=[default_prm._INPUTS_DEF['run']])
+Function(
+    _comp_func=add,
+    description='add',
+    inputs = [_dh_default._INPUTS_DEF['run'], _param_p, _param_a],
+    outputs=[_result_r]
+)
 
-Function(_comp_func=add,description='add',inputs = [default_prm._INPUTS_DEF['run'], _param_p, _param_a],outputs=[_result_r])
+dh_func = dict(inspect.getmembers(_dh_np, inspect.isfunction))
 
-
-
-
-
-dh_func = dict(inspect.getmembers(dh, inspect.isfunction))
-
-
-for i in dh.__privat__:
+for i in _dh_np.__privat__:
     dh_func.__delitem__(i)
 
-dw = dict(dh.kwd)
+dw = dict(_dh_np.kwd)
 dhk = list(dh_func.keys())
 dhf = list(dh_func.values())
 print(dh_func)
@@ -115,6 +121,33 @@ for i in dhk:
     j = dw[i]
     print(dw[i])
 
-    Function(_comp_func=dh_func[i],name = i ,description='numpy creator' ,inputs = j, outputs=[dh.outp[0]])
+    Function(_comp_func=dh_func[i], name=i, description='numpy creator', inputs=j, outputs=_dh_np.num_out)
 
 
+#create func
+
+
+
+Function(
+    _comp_func=_dh_geo.base_min_bound_rect,
+    name='base_min_bound_rect',
+    description='base_min_bound_rect',
+    inputs =[__prms_in['points'], __prms_in['run']],
+    outputs=[__points_out_a]
+)
+
+Function(
+    _comp_func=_dh_geo.base_convexhull,
+    name='base_convexhull',
+    description='base_convexhull',
+    inputs =[__prms_in['points'], __prms_in['run']],
+    outputs=[__points_out_a]
+)
+
+Function(
+    _comp_func=_dh_geo.base_primitive_toroid,
+    name ='base_primitive_toroid',
+    description='primitive',
+    inputs=[__prms_in['u'], __prms_in['v'], __prms_in['u_count'], __prms_in['v_count'],  __prms_in['run']],
+    outputs=[__points_out_a, __points_out_b]
+)
