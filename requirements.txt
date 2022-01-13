@@ -16,3 +16,4 @@ seaborn
 psutil
 memory_profiler
 scikit-learn
+compython

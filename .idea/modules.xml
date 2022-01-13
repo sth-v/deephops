@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/../compython/.idea/compython.iml" filepath="$PROJECT_DIR$/../compython/.idea/compython.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/deephops.iml" filepath="$PROJECT_DIR$/.idea/deephops.iml" />
     </modules>
   </component>
