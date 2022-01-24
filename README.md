@@ -1,5 +1,5 @@
 
-![You didn't think he was very deep](notion://www.notion.so/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F98f67462-10a7-46f8-8430-0c99d8bb5bde%2Fgithub.png?table=block&id=0633667e-f3e2-41b3-93c5-53dc65e73dd6&spaceId=4e96d220-9697-4037-9fc5-18b46d35d310&width=600&userId=f0b43506-28c7-4cce-b5a9-f88b256c9eef&cache=v2)
+![You didn't think he was very deep](https://s3.us-west-2.amazonaws.com/secure.notion-static.com/98f67462-10a7-46f8-8430-0c99d8bb5bde/github.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220124%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20220124T110800Z&X-Amz-Expires=86400&X-Amz-Signature=6a1702239098fb8ade82dd54a69fd41c7745d9a5ed2161de47561dbff87804cd&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22github.png%22&x-id=GetObject)
 
 
 
