@@ -124,6 +124,52 @@ for i in dhk:
     Function(_comp_func=dh_func[i], name=i, description='numpy creator', inputs=j, outputs=_dh_np.num_out)
 
 
+def req_put(run, url, data):
+    if run:
+        r = requests.put(url, data)
+        return json.dumps(r.json())
+
+
+def req_get(run, url):
+    if run:
+        r = requests.get(url)
+        return json.dumps(r.json())
+
+def req_post(run, url, data):
+    if run:
+        r = requests.post(url, data)
+        return json.dumps(r.json())
+    
+
+Function(
+    name='GET',
+    _comp_func=req_get,
+    description='GET response',
+    inputs=[_dh_default._INPUTS_DEF['run'], hs.HopsString("urll", "urll","urll", hs.HopsParamAccess.ITEM)],
+    
+)
+
+Function(
+    name='POST',
+    _comp_func=req_post,
+    description='POST response',
+    inputs=[_dh_default._INPUTS_DEF['run'], 
+             hs.HopsString("urll", "urll","urll", hs.HopsParamAccess.ITEM), 
+             hs.HopsString("data", "d", "d", hs.HopsParamAccess.ITEM)
+            ],
+    
+)
+
+Function(
+    name='PUT',
+    _comp_func=req_put,
+    description='PUT response',
+    inputs=[_dh_default._INPUTS_DEF['run'], 
+             hs.HopsString("urll", "urll","urll", hs.HopsParamAccess.ITEM), 
+             hs.HopsString("data", "d", "d", hs.HopsParamAccess.ITEM)
+            ],
+    
+)
 #create func
 
 
