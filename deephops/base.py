@@ -7,7 +7,8 @@ import ghhops_server as hs
 import operator as op
 import requests
 import json
-import json
+import urllib3
+urllib3.disable_warnings()
 
 __prms_in = dict(_dh_default.prms_hs)
 __points_out_a = _dh_default.points_out[0]
@@ -128,18 +129,18 @@ for i in dhk:
 
 def req_put(run, url, data):
     if run:
-        r = requests.put(url, data)
+        r = requests.put(url, data, verify=False)
         return json.dumps(r.json())
 
 
 def req_get(run, url):
     if run:
-        r = requests.get(url)
+        r = requests.get(url, verify=False)
         return json.dumps(r.json())
 
 def req_post(run, url, data):
     if run:
-        r = requests.post(url, data)
+        r = requests.post(url, data, verify=False)
         return json.dumps(r.json())
     
 
